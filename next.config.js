@@ -20,6 +20,7 @@ const nextConfig = {
       "www.muchbetteradventures.com",
       "www.sportaktiv.com",
       "soca-valley.com",
+      "www.socavalley.com",
     ],
     remotePatterns: [
       {
