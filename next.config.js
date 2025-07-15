@@ -14,6 +14,13 @@ const nextConfig = {
     return config;
   },
   images: {
+    domains: [
+      "external-content.duckduckgo.com",
+      "kranjska-gora.si",
+      "www.muchbetteradventures.com",
+      "www.sportaktiv.com",
+      "soca-valley.com",
+    ],
     remotePatterns: [
       {
         protocol: "https",
