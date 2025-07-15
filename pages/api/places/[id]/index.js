@@ -9,7 +9,6 @@ export default async function handler(request, response) {
     try {
       const place = await Place.findById(id);
       console.log(place);
-      
 
       if (!place) {
         response.status(404).json({ status: "Not Found" });
@@ -20,5 +19,11 @@ export default async function handler(request, response) {
     } catch (error) {
       response.status(500).json({ status: "Error", message: error.message });
     }
+  }
+
+  if (request.method === "PUT") {
+    const placeData = request.body;
+    await Place.findByIdAndUpdate(id, placeData);
+    return response.status(200).json({ status: `Place ${id} updated!` });
   }
 }
