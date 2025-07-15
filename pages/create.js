@@ -11,28 +11,33 @@ const StyledBackLink = styled(StyledLink)`
 export default function CreatePlacePage() {
   const router = useRouter();
 
- async function addPlace(place) {
-  try {
-    const response = await fetch("/api/places", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(place),
-    });
+  //Gets called when the user submits the form
+  async function addPlace(place) {
+    try {
+      const response = await fetch("/api/places", {
+        method: "POST",
+        //Tell the server we are sending json data
+        headers: {
+          "Content-Type": "application/json",
+        },
+        //Converts the place object into json
+        body: JSON.stringify(place),
+      });
 
-    if (!response.ok) {
-      throw new Error("Failed to add place");
+      if (!response.ok) {
+        throw new Error("Failed to add place");
+      }
+
+      //Refresh data after added
+      mutate("/api/places");
+
+      //Imperative routing. Redirect user to homepage.
+      router.push("/");
+    } catch (error) {
+      console.error("Error adding place:", error);
+      alert("Failed to add place, please try again.");
     }
-
-    mutate("/api/places");
-
-    router.push("/");
-  } catch (error) {
-    console.error("Error adding place:", error);
-    alert("Failed to add place, please try again.");
   }
-}
 
   return (
     <>

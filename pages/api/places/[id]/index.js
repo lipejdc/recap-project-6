@@ -2,22 +2,24 @@ import Place from "@/db/models/Place";
 import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
+  //Make sure data base is connected
   await dbConnect();
+  //Get id from the url
   const { id } = request.query;
 
   switch (request.method) {
     case "GET":
-      return handleGet(id, response);
+      return getPlaceById(id, response);
     case "PUT":
-      return handlePut(id, request.body, response);
+      return editPlaceById(id, request.body, response);
     case "DELETE":
-      return handleDelete(id, response);
+      return deletePlaceById(id, response);
     default:
       return response.status(405).json({ status: "Method Not Allowed" });
   }
 }
 
-async function handleGet(id, response) {
+async function getPlaceById(id, response) {
   try {
     const place = await Place.findById(id);
     if (!place) {
@@ -29,7 +31,7 @@ async function handleGet(id, response) {
   }
 }
 
-async function handlePut(id, data, response) {
+async function editPlaceById(id, data, response) {
   try {
     const updatedPlace = await Place.findByIdAndUpdate(id, data, { new: true });
     if (!updatedPlace) {
@@ -41,7 +43,7 @@ async function handlePut(id, data, response) {
   }
 }
 
-async function handleDelete(id, response) {
+async function deletePlaceById(id, response) {
   try {
     const deletedPlace = await Place.findByIdAndDelete(id);
     if (!deletedPlace) {

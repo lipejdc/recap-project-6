@@ -21,6 +21,7 @@ const nextConfig = {
       "www.sportaktiv.com",
       "soca-valley.com",
       "www.socavalley.com",
+      "pica-cloud.com",
     ],
     remotePatterns: [
       {
